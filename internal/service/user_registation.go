@@ -23,7 +23,7 @@ func (s *UserService) SendEmailCode(email string) error {
 	// Сохранение кода в базу данных
 	userEmailCodes[email] = emailCodes{
 		Code:      fmt.Sprintf("%04d", code),
-		ExpiresAt: time.Now().Add(5 * time.Minute),
+		ExpiresAt: time.Now().Add(10 * time.Minute),
 	}
 
 	err := utils.SendEmail(email, code)

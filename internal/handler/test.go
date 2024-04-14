@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"os"
-	"strings"
 )
 
 func (h *Handler) TestFunc(ctx *gin.Context) {
@@ -15,12 +14,10 @@ func (h *Handler) TestFunc(ctx *gin.Context) {
 	}
 
 	for _, result := range results {
-		//	Разбирать строку
-		splitted := strings.Split(result, "\t")
-		city := splitted[0] + " " + splitted[1] + ", " + splitted[2] + " " + splitted[3]
-		log.Println(city)
+		log.Println(result)
 
-		err := h.services.City.AddCity(city)
+		//	Запись в базу
+		err := h.services.StoreAddresses.AddStoreAddress(result)
 		if err != nil {
 			log.Println(err)
 		}
@@ -30,7 +27,7 @@ func (h *Handler) TestFunc(ctx *gin.Context) {
 func ReadFile() ([]string, error) {
 	var data []string
 
-	file, err := os.Open("city.txt")
+	file, err := os.Open("data.txt")
 	if err != nil {
 		return nil, err
 	}

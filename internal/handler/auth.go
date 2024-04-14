@@ -6,7 +6,12 @@ import (
 
 func (h *Handler) AuthUser(ctx *gin.Context) {
 	// TODO: Получение тела запроса
-	//var input entity.UserAuthInput
+
+	// TODO: Валидация
+
+	// TODO: Обработка ошибок
+
+	// TODO: Отправка ответа
 
 	return
 

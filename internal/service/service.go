@@ -22,16 +22,28 @@ type City interface {
 	Search(query string) ([]entity.City, error)
 }
 
+type StoreAddresses interface {
+	AddStoreAddress(address string) error
+}
+
+type Ticket interface {
+	CheckPrice(input *entity.TicketInput) error
+}
+
 type Service struct {
 	Auth
 	User
 	City
+	StoreAddresses
+	Ticket
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
-		User: NewUserService(repos.User),
-		City: NewCityService(repos.City),
-		Auth: NewAuthService(repos.User),
+		User:           NewUserService(repos.User),
+		City:           NewCityService(repos.City),
+		StoreAddresses: NewStoreAddressesService(repos.StoreAddresses),
+		Auth:           NewAuthService(repos.User),
+		Ticket:         NewTicketService(repos.Ticket),
 	}
 }

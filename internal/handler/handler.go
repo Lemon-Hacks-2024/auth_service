@@ -19,10 +19,10 @@ func (h *Handler) InitRoutes(port string) {
 	router := gin.New()
 	gin.SetMode(gin.ReleaseMode)
 	//
-	api := router.Group("/s0")
+	api := router.Group("/api")
 	{
 
-		api.GET("/test", h.TestFunc)
+		//api.GET("/test", h.TestFunc)
 
 		api.POST("/login", h.AuthUser)
 		api.POST("/registration", h.RegistrationUser)
@@ -35,9 +35,9 @@ func (h *Handler) InitRoutes(port string) {
 			verifyCode.POST("/phone", nil)
 		}
 
-		tickets := api.Group("/tickets")
+		tickets := api.Group("/prices")
 		{
-			tickets.POST("/", nil)
+			tickets.POST("/check", h.CheckPrice)
 		}
 
 		cities := api.Group("/cities")

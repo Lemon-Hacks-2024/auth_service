@@ -17,15 +17,28 @@ type City interface {
 	Search(query string) ([]entity.City, error)
 }
 
+type StoreAddresses interface {
+	AddStoreAddress(address string) error
+}
+
+type Ticket interface {
+	GetCocialPriceProductByName(nameProduct string) (float64, error)
+}
+
 type Repository struct {
 	Auth
 	User
 	City
+	StoreAddresses
+	Ticket
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
-		User: NewUserRepo(db),
-		City: NewCityRepo(db),
+		User:           NewUserRepo(db),
+		City:           NewCityRepo(db),
+		StoreAddresses: NewStoreAddressesRepo(db),
+		//Auth:           NewAuthRepo(db),
+		Ticket: NewTicketRepo(db),
 	}
 }
