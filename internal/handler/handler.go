@@ -24,7 +24,7 @@ func (h *Handler) InitRoutes(port string) {
 
 		api.GET("/test", h.TestFunc)
 
-		api.POST("/login", nil)
+		api.POST("/login", h.AuthUser)
 		api.POST("/registration", h.RegistrationUser)
 
 		verifyCode := api.Group("/verify-code")

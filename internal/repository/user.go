@@ -25,13 +25,13 @@ func (r *UserRepo) CreateUser(user *entity.UserRegInput) (int, error) {
 
 	var userID int
 
-	err = tx.QueryRow("INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id_user", user.Email, hashPassword(user.Password)).Scan(&userID)
+	err = tx.QueryRow("INSERT INTO users (surname, name, phone_number, email, password_hash, city_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id", user.Surname, user.Name, user.PhoneNumber, user.Email, hashPassword(user.Password), user.CityID).Scan(&userID)
 	if err != nil {
 		tx.Rollback()
 		return 0, err
 	}
 
-	_, err = tx.Exec("INSERT INTO imeis (id_user, imei) VALUES ($1, $2)", userID, user.ImeiID)
+	_, err = tx.Exec("INSERT INTO imeis (user_id, imei) VALUES ($1, $2)", userID, user.ImeiID)
 	if err != nil {
 		tx.Rollback()
 		return 0, err
