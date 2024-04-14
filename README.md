@@ -1,2 +1,1 @@
-# auth_service
-Сервис авторизации
+# main_service
